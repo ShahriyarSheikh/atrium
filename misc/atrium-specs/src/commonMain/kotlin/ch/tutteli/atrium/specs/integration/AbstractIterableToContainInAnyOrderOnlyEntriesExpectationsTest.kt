@@ -7,7 +7,7 @@ import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InAnyOrd
 import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.specs.*
 
-abstract class IterableToContainInAnyOrderOnlyEntriesExpectationsSpec(
+abstract class AbstractIterableToContainInAnyOrderOnlyEntriesExpectationsTest(
     toContainInAnyOrderOnlyEntries: Fun3<Iterable<Double>, Expect<Double>.() -> Unit, Array<out Expect<Double>.() -> Unit>, InAnyOrderOnlyReportingOptions.() -> Unit>,
     toContainInAnyOrderOnlyNullableEntries: Fun3<Iterable<Double?>, (Expect<Double>.() -> Unit)?, Array<out (Expect<Double>.() -> Unit)?>, InAnyOrderOnlyReportingOptions.() -> Unit>,
     describePrefix: String = "[Atrium] "

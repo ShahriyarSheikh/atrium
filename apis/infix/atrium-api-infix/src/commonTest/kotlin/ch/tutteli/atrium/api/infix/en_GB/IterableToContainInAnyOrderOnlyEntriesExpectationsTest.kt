@@ -5,7 +5,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InAnyOrderOnlyReportingOptions
 import ch.tutteli.atrium.specs.notImplemented
 
-class IterableToContainInAnyOrderOnlyEntriesExpectationsSpec :
+class IterableToContainInAnyOrderOnlyEntriesExpectationsTest :
     ch.tutteli.atrium.specs.integration.IterableToContainInAnyOrderOnlyEntriesExpectationsSpec(
         getContainsPair(),
         getContainsNullablePair()
