@@ -3,10 +3,13 @@ package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InAnyOrderOnlyReportingOptions
-import ch.tutteli.atrium.specs.notImplemented
+import ch.tutteli.atrium.api.verbs.expect
+import ch.tutteli.atrium.specs.integration.AbstractIterableToContainInAnyOrderOnlyEntriesExpectationsTest
+import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.emptyInAnyOrderOnlyReportOptions
+import kotlin.test.Test
 
 class IterableToContainInAnyOrderOnlyEntriesExpectationsTest :
-    ch.tutteli.atrium.specs.integration.IterableToContainInAnyOrderOnlyEntriesExpectationsSpec(
+    AbstractIterableToContainInAnyOrderOnlyEntriesExpectationsTest(
         getContainsPair(),
         getContainsNullablePair()
     ) {
@@ -42,35 +45,87 @@ class IterableToContainInAnyOrderOnlyEntriesExpectationsTest :
             } else expect toContain o inAny order but only the entries(a, *aX, reportOptionsInAnyOrderOnly = report)
     }
 
-    @Suppress("unused", "UNUSED_VALUE")
-    private fun ambiguityTest() {
-        var list: Expect<List<Number>> = notImplemented()
-        var nList: Expect<Set<Number?>> = notImplemented()
-        var subList: Expect<ArrayList<Number>> = notImplemented()
-        var star: Expect<Collection<*>> = notImplemented()
+    @Suppress("AssignedValueIsNeverRead", "UNUSED_VARIABLE", "UNUSED_VALUE")
+    @Test
+    fun ambiguityTest() {
+        var list: Expect<List<Number>> = expect(listOf(1))
+        var nSet: Expect<Set<Number?>> = expect(setOf(1))
+        var subList: Expect<ArrayList<Number>> = expect(arrayListOf(1))
+        var star: Expect<Collection<*>> = expect(listOf(1))
 
-        list = list toContain o inAny order but only entry {}
-        nList = nList toContain o inAny order but only entry {}
-        subList = subList toContain o inAny order but only entry {}
-        star = star toContain o inAny order but only entry {}
+        var nNullable: Expect<Collection<Number?>> = expect(listOf(null))
+        var starNullable: Expect<Collection<*>> = expect(listOf(null))
 
-        nList = nList toContain o inAny order but only entry (null)
-        star = star toContain o inAny order but only entry (null)
+        var listEntries: Expect<List<Number>> = expect(listOf(1, 2))
+        var nSetEntries: Expect<Set<Number?>> = expect(setOf(1, 2))
+        var subListEntries: Expect<ArrayList<Number>> = expect(arrayListOf(1, 2))
+        var starEntries: Expect<Collection<*>> = expect(listOf(1, 2))
 
-        list = list toContain o inAny order but only the entries({}, {})
-        nList = nList toContain o inAny order but only the entries({}, {})
-        subList = subList toContain o inAny order but only the entries({}, {})
-        star = star toContain o inAny order but only the entries({}, {})
+        var nCollectionEntries: Expect<Collection<Number?>> =
+            expect(listOf(null, 1, null))
 
-        list = list toContain o inAny order but only the entries({}, {}, reportOptionsInAnyOrderOnly = {})
-        nList = nList toContain o inAny order but only the entries({}, {}, reportOptionsInAnyOrderOnly = {})
-        subList = subList toContain o inAny order but only the entries({}, {}, reportOptionsInAnyOrderOnly = {})
-        star = star toContain o inAny order but only the entries({}, {}, reportOptionsInAnyOrderOnly = {})
+        var starNullableEntries: Expect<Collection<*>> =
+            expect(listOf(null, 1, null))
 
-        nList = nList toContain o inAny order but only the entries(null, {}, null)
-        star = star toContain o inAny order but only the entries(null, {}, null)
+        list = list toContain o inAny order but only entry { toEqual(1) }
+        nSet = nSet toContain o inAny order but only entry { toEqual(1) }
+        subList = subList toContain o inAny order but only entry { toEqual(1) }
+        star = star toContain o inAny order but only entry { toEqual(1) }
 
-        nList = nList toContain o inAny order but only the entries(null, {}, null, reportOptionsInAnyOrderOnly = {})
-        star = star toContain o inAny order but only the entries(null, {}, null, reportOptionsInAnyOrderOnly = {})
+        nNullable = nNullable toContain o inAny order but only entry (null)
+        starNullable = starNullable toContain o inAny order but only entry (null)
+
+        listEntries = listEntries toContain o inAny order but only the entries(
+            { toEqual(1) }, { toEqual(2) }
+        )
+        nSetEntries = nSetEntries toContain o inAny order but only the entries(
+            { toEqual(1) }, { toEqual(2) }
+        )
+        subListEntries = subListEntries toContain o inAny order but only the entries(
+            { toEqual(1) }, { toEqual(2) }
+        )
+        starEntries = starEntries toContain o inAny order but only the entries(
+            { toEqual(1) }, { toEqual(2) }
+        )
+
+
+        listEntries = listEntries toContain o inAny order but only the entries(
+            { toEqual(1) }, { toEqual(2) },
+            reportOptionsInAnyOrderOnly = {}
+        )
+        nSetEntries = nSetEntries toContain o inAny order but only the entries(
+            { toEqual(1) }, { toEqual(2) },
+            reportOptionsInAnyOrderOnly = {}
+        )
+        subListEntries = subListEntries toContain o inAny order but only the entries(
+            { toEqual(1) }, { toEqual(2) },
+            reportOptionsInAnyOrderOnly = {}
+        )
+        starEntries = starEntries toContain o inAny order but only the entries(
+            { toEqual(1) }, { toEqual(2) },
+            reportOptionsInAnyOrderOnly = {}
+        )
+
+        nCollectionEntries =
+            nCollectionEntries toContain o inAny order but only the entries(
+                null, { toEqual(1) }, null
+            )
+
+        starNullableEntries =
+            starNullableEntries toContain o inAny order but only the entries(
+                null, { toEqual(1) }, null
+            )
+
+        nCollectionEntries =
+            nCollectionEntries toContain o inAny order but only the entries(
+                null, { toEqual(1) }, null,
+                reportOptionsInAnyOrderOnly = {}
+            )
+
+        starNullableEntries =
+            starNullableEntries toContain o inAny order but only the entries(
+                null, { toEqual(1) }, null,
+                reportOptionsInAnyOrderOnly = {}
+            )
     }
 }
