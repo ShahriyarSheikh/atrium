@@ -52,7 +52,6 @@ abstract class AbstractIterableToContainInAnyOrderOnlyEntriesExpectationsTest(
             )
         )
     )
-
     @TestFactory
     fun expectationCreatorTest() = expectationCreatorTestFactory(
         ExpectationCreatorTestData(
@@ -514,7 +513,6 @@ abstract class AbstractIterableToContainInAnyOrderOnlyEntriesExpectationsTest(
             }
         }
     }
-
     private val null1null3 = { sequenceOf(null, 1.1, null, 3.1).constrainOnce().asIterable() }
 
     @TestFactory
